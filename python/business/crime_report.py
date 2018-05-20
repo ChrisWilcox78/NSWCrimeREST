@@ -4,7 +4,7 @@ from mongoengine import Document, StringField, IntField, ReferenceField
 
 
 class CrimeReport():
-    def __init__(self, time_period: str, crime_count: int, location: Location, offence: Offence, id: str = None):
+    def __init__(self, time_period: str, crime_count: int, location: Location, offence: Offence, id: str = None) -> None:
         self._id = id
         self._time_period = time_period
         self._crime_count = crime_count

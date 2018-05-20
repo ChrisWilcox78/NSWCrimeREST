@@ -1,11 +1,14 @@
+from typing import Optional
+
+
 class Offence:
-    def __init__(self, category: str, subcategory: str, id: str = None):
-        self._id = id
-        self._category = category
-        self._subcategory = subcategory
+    def __init__(self, category: str, subcategory: str, id: str = None) -> None:
+        self._id: Optional[str] = id
+        self._category: str = category
+        self._subcategory: str = subcategory
 
     @property
-    def id(self) -> str:
+    def id(self) -> Optional[str]:
         return self._id
 
     @property

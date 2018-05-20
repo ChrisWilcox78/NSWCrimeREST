@@ -5,9 +5,10 @@ from business.crime_report import CrimeReport
 from bson.objectid import ObjectId
 import persistence.mongo_repository as repo
 from business.validators import validate_before, provided
+from typing import List
 
 
-def searchCrimeReports(offenceId: str = None, locationId: str = None) -> [CrimeReport]:
+def searchCrimeReports(offenceId: str = None, locationId: str = None) -> List[CrimeReport]:
     """
     Search for crime reports using the specified criteria.  Specifying no criteria results in all records being returned.
     """
@@ -31,9 +32,9 @@ def retrieveOffence(id: str) -> Offence:
     return repo.retrieveOffence(id)
 
 
-def retrieveAllLocations() -> [Location]:
+def retrieveAllLocations() -> List[Location]:
     return repo.retrieveAllLocations()
 
 
-def retrieveAllOffences() -> [Offence]:
+def retrieveAllOffences() -> List[Offence]:
     return repo.retrieveAllOffences()

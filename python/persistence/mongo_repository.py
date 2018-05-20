@@ -7,17 +7,18 @@ from business.location import Location
 from business.offence import Offence
 from bson.objectid import ObjectId
 from persistence.converters import to_crime_report, to_location, to_offence
+from typing import List
 
 MAX_RESULTS = 500
 
 
 @db_connect
-def retrieveAllCrimeReports() -> [CrimeReport]:
+def retrieveAllCrimeReports() -> List[CrimeReport]:
     return [to_crime_report(doc) for doc in CrimeReportMDoc.objects.limit(MAX_RESULTS)]  # pylint: disable=no-member
 
 
 @db_connect
-def searchCrimeReports(offenceId: str, locationId: str) -> [CrimeReport]:
+def searchCrimeReports(offenceId: str, locationId: str) -> List[CrimeReport]:
     if offenceId is None:
         reports = CrimeReportMDoc.objects(location=ObjectId(   # pylint: disable=no-member
             locationId)).limit(MAX_RESULTS)
@@ -52,12 +53,12 @@ def retrieveLocation(id: str) -> Location:
 
 
 @db_connect
-def retrieveAllLocations() -> [Location]:
+def retrieveAllLocations() -> List[Location]:
     return [to_location(doc) for doc in LocationMDoc.objects]  # pylint: disable=no-member
 
 
 @db_connect
-def retrieveAllOffences() -> [Offence]:
+def retrieveAllOffences() -> List[Offence]:
     return [to_offence(doc) for doc in OffenceMDoc.objects]  # pylint: disable=no-member
 
 
@@ -66,7 +67,6 @@ def retrieveOffence(id: str) -> Offence:
     return to_offence(OffenceMDoc.objects.get(id=ObjectId(id)))  # pylint: disable=no-member
 
 
-@db_connect
 def _persist_or_retrieve_location(location: Location) -> LocationMDoc:
     location_doc = LocationMDoc.objects(  # pylint: disable=no-member
         statsArea=location.statsArea, lga=location.lga).first()
@@ -77,7 +77,6 @@ def _persist_or_retrieve_location(location: Location) -> LocationMDoc:
     return location_doc
 
 
-@db_connect
 def _persist_or_retrieve_offence(offence: Offence) -> OffenceMDoc:
     offence_doc = OffenceMDoc.objects(  # pylint: disable=no-member
         category=offence.category, subcategory=offence.subcategory).first()

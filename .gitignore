@@ -1,3 +1,4 @@
 python/venv/*
 python/venv-win/*
 python/**/__pycache__/*
+python/.mypy_cache/*

@@ -1,13 +1,14 @@
+from typing import Optional
 
 
 class Location:
-    def __init__(self, statsArea: str, lga: str, id: str = None):
-        self._id: str = id
+    def __init__(self, statsArea: str, lga: str, id: str = None) -> None:
+        self._id: Optional[str] = id
         self._statsArea: str = statsArea
         self._lga: str = lga
 
     @property
-    def id(self) -> str:
+    def id(self) -> Optional[str]:
         return self._id
 
     @property
