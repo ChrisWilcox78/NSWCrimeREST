@@ -1,0 +1,3 @@
+python/venv/*
+python/venv-win/*
+python/**/__pycache__/*
