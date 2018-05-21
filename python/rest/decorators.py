@@ -1,6 +1,6 @@
 from functools import wraps
 from threading import Thread
-from rest.json_serializer import to_serializable
+from .json_serializer import to_serializable
 from json import dumps
 
 

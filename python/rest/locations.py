@@ -1,6 +1,6 @@
 from flask import Blueprint
 from business.retrieval_functions import retrieveAllLocations, retrieveLocation, searchCrimeReports
-from rest.decorators import json_content
+from .decorators import json_content
 
 locations_resource = Blueprint("locations_resource", __name__)
 

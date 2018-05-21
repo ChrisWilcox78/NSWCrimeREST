@@ -13,10 +13,10 @@ def to_serializable(val):
 @to_serializable.register(Offence)
 def ts_offence(val: Offence):
     return {
-        "id": val.id,
+        "id": str(val.id),
         "links": {
-            "self": url_for("offences_resource.getOffence", id=val.id, _external=True),
-            "crime_reports": url_for("offences_resource.getCrimesForOffence", id=val.id, _external=True)
+            "self": url_for("offences_resource.getOffence", id=str(val.id), _external=True),
+            "crime_reports": url_for("offences_resource.getCrimesForOffence", id=str(val.id), _external=True)
         },
         "category": val.category,
         "subcategory": val.subcategory
@@ -26,10 +26,10 @@ def ts_offence(val: Offence):
 @to_serializable.register(Location)
 def ts_location(val: Location):
     return {
-        "id": val.id,
+        "id": str(val.id),
         "links": {
-            "self": url_for("locations_resource.getLocation", id=val.id, _external=True),
-            "crime_reports": url_for("locations_resource.getCrimesForLocation", id=val.id, _external=True)
+            "self": url_for("locations_resource.getLocation", id=str(val.id), _external=True),
+            "crime_reports": url_for("locations_resource.getCrimesForLocation", id=str(val.id), _external=True)
         },
         "stats_area": val._statsArea,
         "lga": val.lga
@@ -39,20 +39,20 @@ def ts_location(val: Location):
 @to_serializable.register(CrimeReport)
 def ts_crime_report(val: CrimeReport):
     return {
-        "id": val.id,
+        "id": str(val.id),
         "links": {
-            "self": url_for("crimes_resource.getCrime", id=val.id, _external=True)
+            "self": url_for("crimes_resource.getCrime", id=str(val.id), _external=True)
         },
         "crime_count": val.crime_count,
         "time_period": val.time_period,
         "location": {
-            "id": val.location.id,
+            "id": str(val.location.id),
             "summary": val.location.lga,
-            "url": url_for("locations_resource.getLocation", id=val.location.id, _external=True)
+            "url": url_for("locations_resource.getLocation", id=str(val.location.id), _external=True)
         },
         "offence": {
-            "id": val.offence.id,
+            "id": str(val.offence.id),
             "summary": val.offence.category,
-            "url": url_for("offences_resource.getOffence", id=val.offence.id, _external=True)
+            "url": url_for("offences_resource.getOffence", id=str(val.offence.id), _external=True)
         }
     }

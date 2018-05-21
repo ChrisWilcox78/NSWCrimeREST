@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from threading import Thread
 from business.csv_processor import process_csv
-from rest.decorators import run_in_thread
+from .decorators import run_in_thread
 
 import_resource = Blueprint("import_resource", __name__)
 

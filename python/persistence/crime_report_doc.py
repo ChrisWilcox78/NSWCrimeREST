@@ -1,5 +1,5 @@
-from persistence.location_doc import LocationMDoc
-from persistence.offence_doc import OffenceMDoc
+from .location_doc import LocationMDoc
+from .offence_doc import OffenceMDoc
 from mongoengine import Document, StringField, IntField, ReferenceField
 
 

@@ -1,13 +1,17 @@
-from persistence.decorators import db_connect
-from persistence.location_doc import LocationMDoc
-from persistence.offence_doc import OffenceMDoc
-from persistence.crime_report_doc import CrimeReportMDoc
+from typing import List
+
+from bson.objectid import ObjectId
+
 from business.crime_report import CrimeReport
+from business.crime_report_observable import observe_crime_report
 from business.location import Location
 from business.offence import Offence
-from bson.objectid import ObjectId
-from persistence.converters import to_crime_report, to_location, to_offence
-from typing import List
+
+from .converters import to_crime_report, to_location, to_offence
+from .crime_report_doc import CrimeReportMDoc
+from .decorators import db_connect
+from .location_doc import LocationMDoc
+from .offence_doc import OffenceMDoc
 
 MAX_RESULTS = 500
 
@@ -37,7 +41,8 @@ def retrieveCrimeReport(id: str) -> CrimeReport:
 
 
 @db_connect
-def persist_crime_report(crime_report: CrimeReport) -> None:
+@observe_crime_report
+def persist_crime_report(crime_report: CrimeReport) -> CrimeReport:
     offence_doc: OffenceMDoc = _persist_or_retrieve_offence(
         crime_report.offence)
     location_doc: LocationMDoc = _persist_or_retrieve_location(
@@ -45,6 +50,7 @@ def persist_crime_report(crime_report: CrimeReport) -> None:
     crime_report_doc: CrimeReportMDoc = CrimeReportMDoc(
         time_period=crime_report.time_period, crime_count=crime_report.crime_count, location=location_doc, offence=offence_doc)
     crime_report_doc.save()
+    return to_crime_report(crime_report_doc)
 
 
 @db_connect

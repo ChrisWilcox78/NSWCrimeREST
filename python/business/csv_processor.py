@@ -1,13 +1,12 @@
 from csv import DictReader
 from rx import Observable
 import persistence.mongo_repository as repo
-from business.crime_report import CrimeReport
-from business.location import Location
-from business.offence import Offence
+from .crime_report import CrimeReport
+from .location import Location
+from .offence import Offence
 
 
 def process_csv(filename: str) -> None:
-    # TODO add completion and error handling here
     csvObservable = Observable.from_(DictReader(  # pylint: disable=no-member
         open(filename, "r")))
     csvObservable.subscribe(_persist_crime_reports)

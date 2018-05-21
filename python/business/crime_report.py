@@ -1,5 +1,5 @@
-from business.offence import Offence
-from business.location import Location
+from .offence import Offence
+from .location import Location
 from mongoengine import Document, StringField, IntField, ReferenceField
 
 
