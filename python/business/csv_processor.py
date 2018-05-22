@@ -1,15 +1,13 @@
 from csv import DictReader
-from rx import Observable
 import persistence.mongo_repository as repo
 from .crime_report import CrimeReport
 from .location import Location
 from .offence import Offence
 
 
-def process_csv(filename: str) -> None:
-    csvObservable = Observable.from_(DictReader(  # pylint: disable=no-member
-        open(filename, "r")))
-    csvObservable.subscribe(_persist_crime_reports)
+def process_csv(file_path: str) -> None:
+    for line in DictReader(open(file_path, "r")):
+        _persist_crime_reports(line)
 
 
 def _persist_crime_reports(csv_line) -> None:
