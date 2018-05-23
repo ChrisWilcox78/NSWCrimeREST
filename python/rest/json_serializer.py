@@ -14,10 +14,14 @@ def to_serializable(val):
 def ts_offence(val: Offence):
     return {
         "id": str(val.id),
-        "links": {
-            "self": url_for("offences_resource.getOffence", id=str(val.id), _external=True),
-            "crime_reports": url_for("offences_resource.getCrimesForOffence", id=str(val.id), _external=True)
-        },
+        "links": [
+            {
+                "type": "self",
+                "url": url_for("offences_resource.getOffence", id=str(val.id), _external=True)}, {
+                "type": "crime_reports",
+                "url": url_for("offences_resource.getCrimesForOffence", id=str(val.id), _external=True)
+            }
+        ],
         "category": val.category,
         "subcategory": val.subcategory
     }
@@ -27,10 +31,15 @@ def ts_offence(val: Offence):
 def ts_location(val: Location):
     return {
         "id": str(val.id),
-        "links": {
-            "self": url_for("locations_resource.getLocation", id=str(val.id), _external=True),
-            "crime_reports": url_for("locations_resource.getCrimesForLocation", id=str(val.id), _external=True)
-        },
+        "links": [
+            {
+                "type": "self",
+                "url": url_for("locations_resource.getLocation", id=str(val.id), _external=True)
+            }, {
+                "type": "crime_reports",
+                "url": url_for("locations_resource.getCrimesForLocation", id=str(val.id), _external=True)
+            }
+        ],
         "stats_area": val._statsArea,
         "lga": val.lga
     }
@@ -40,9 +49,12 @@ def ts_location(val: Location):
 def ts_crime_report(val: CrimeReport):
     return {
         "id": str(val.id),
-        "links": {
-            "self": url_for("crimes_resource.getCrime", id=str(val.id), _external=True)
-        },
+        "links": [
+            {
+                "type": "self",
+                "url": url_for("crimes_resource.getCrime", id=str(val.id), _external=True)
+            }
+        ],
         "crime_count": val.crime_count,
         "time_period": val.time_period,
         "location": {

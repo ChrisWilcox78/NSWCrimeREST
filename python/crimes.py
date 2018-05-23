@@ -21,11 +21,18 @@ app.register_blueprint(import_resource)
 
 @app.route("/")
 def root():
-    return jsonify({
-        "crime_reports": url_for("crimes_resource.getCrimes", _external=True),
-        "crime_locations": url_for("locations_resource.getLocations", _external=True),
-        "offences": url_for("offences_resource.getOffences", _external=True)
-    })
+    return jsonify([
+        {
+            "resource": "crime_reports",
+            "url": url_for("crimes_resource.getCrimes", _external=True)
+        }, {
+            "resource": "crime_locations",
+            "url": url_for("locations_resource.getLocations", _external=True)
+        }, {
+            "resource": "offences",
+            "url": url_for("offences_resource.getOffences", _external=True)
+        }
+    ])
 
 
 sockets = Sockets(app)
