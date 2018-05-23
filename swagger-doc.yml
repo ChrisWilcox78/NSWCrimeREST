@@ -113,6 +113,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/CrimeLocation"
   
+  /crime-locations/{id}/crime-reports:
+    get:
+      summary: Returns the first 500 CrimeReports related to the specified CrimeLocation.  This is the equivalent of /crime-reports?locationId={id}
+      parameters:
+        - name: id
+          in: path
+          description: CrimeLocation ID
+          required: true
+          example: 5b03b6d5e3ddbe03ed86a220
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of CrimeReports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CrimeReport"
+  
   /offences/:
     get:
       summary: Returns a list of up to the first 500 offences.
@@ -144,6 +165,43 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Offence"
+  
+  /offences/{id}/crime-reports:
+    get:
+      summary: Returns the first 500 CrimeReports related to the specified Offence.  This is the equivalent of /crime-reports?offenceId={id}
+      parameters:
+        - name: id
+          in: path
+          description: Offence ID
+          required: true
+          example: 5b03b6d5e3ddbe03ed86a220
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of CrimeReports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CrimeReport"
+  /import:
+    post:
+      summary: Starts an import with the specified file.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filename:
+                  type: string
+                  description: The path to the file to import (this folder should be accessible by the server).
+                  required: true
+                  example: ../data/testFile.csv
+
 
 components:
   schemas:
@@ -170,6 +228,7 @@ components:
             properties:
               type:
                 type: string
+                enum: [self, crime_reports]
                 description: The type of resource provided by the link.
                 example: crime_reports
               url:
@@ -200,6 +259,7 @@ components:
             properties:
               type:
                 type: string
+                enum: [self, crime_reports]
                 description: The type of resource provided by the link.
                 example: self
               url:
@@ -261,6 +321,7 @@ components:
             properties:
               type:
                 type: string
+                enum: [self]
                 description: The type of resource provided by the link.
                 example: self
               url:
