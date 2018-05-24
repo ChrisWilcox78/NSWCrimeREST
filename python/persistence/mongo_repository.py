@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from bson.objectid import ObjectId
 
@@ -9,7 +9,7 @@ from business.offence import Offence
 
 from .converters import to_crime_report, to_location, to_offence
 from .crime_report_doc import CrimeReportMDoc
-from .decorators import db_connect
+from .decorators import db_connect, treat_not_found_as_none
 from .location_doc import LocationMDoc
 from .offence_doc import OffenceMDoc
 
@@ -36,7 +36,8 @@ def searchCrimeReports(offenceId: str, locationId: str) -> List[CrimeReport]:
 
 
 @db_connect
-def retrieveCrimeReport(id: str) -> CrimeReport:
+@treat_not_found_as_none
+def retrieveCrimeReport(id: str) -> Optional[CrimeReport]:
     return to_crime_report(CrimeReportMDoc.objects.get(id=ObjectId(id)))  # pylint: disable=no-member
 
 
@@ -54,7 +55,8 @@ def persist_crime_report(crime_report: CrimeReport) -> CrimeReport:
 
 
 @db_connect
-def retrieveLocation(id: str) -> Location:
+@treat_not_found_as_none
+def retrieveLocation(id: str) -> Optional[Location]:
     return to_location(LocationMDoc.objects.get(id=ObjectId(id)))  # pylint: disable=no-member
 
 
@@ -69,7 +71,8 @@ def retrieveAllOffences() -> List[Offence]:
 
 
 @db_connect
-def retrieveOffence(id: str) -> Offence:
+@treat_not_found_as_none
+def retrieveOffence(id: str) -> Optional[Offence]:
     return to_offence(OffenceMDoc.objects.get(id=ObjectId(id)))  # pylint: disable=no-member
 
 

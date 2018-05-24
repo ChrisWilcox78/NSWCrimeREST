@@ -1,6 +1,6 @@
 from flask import Blueprint
 from business.retrieval_functions import retrieveAllLocations, retrieveLocation, searchCrimeReports
-from .decorators import json_content
+from .decorators import json_content, treat_none_as_404
 
 locations_resource = Blueprint("locations_resource", __name__)
 
@@ -13,6 +13,7 @@ def getLocations():
 
 @locations_resource.route("/crime-locations/<string:id>")
 @json_content
+@treat_none_as_404
 def getLocation(id: str):
     return retrieveLocation(id=id)
 

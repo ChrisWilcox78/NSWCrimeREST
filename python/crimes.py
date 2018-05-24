@@ -12,6 +12,8 @@ from rest.json_serializer import to_serializable
 from rest.locations import locations_resource
 from rest.offences import offences_resource
 
+from werkzeug.exceptions import BadRequest
+
 app = Flask(__name__)
 app.register_blueprint(locations_resource)
 app.register_blueprint(offences_resource)
@@ -33,6 +35,11 @@ def root():
             "url": url_for("offences_resource.getOffences", _external=True)
         }
     ])
+
+
+@app.errorhandler(ValueError)
+def handle_value_error(error):
+    raise BadRequest()
 
 
 sockets = Sockets(app)

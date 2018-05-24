@@ -1,9 +1,9 @@
 from flask import Blueprint, request
 
-from business.retrieval_functions import (retrieveCrimeReport,
-                                          searchCrimeReports)
+from business.retrieval_functions import (
+    retrieveCrimeReport, searchCrimeReports)
 
-from .decorators import json_content
+from .decorators import json_content, treat_none_as_404
 
 crimes_resource = Blueprint("crimes_resource", __name__)
 
@@ -20,5 +20,6 @@ def getCrimes():
 
 @crimes_resource.route('/crime-reports/<string:id>')
 @json_content
+@treat_none_as_404
 def getCrime(id: str):
     return retrieveCrimeReport(id=id)
