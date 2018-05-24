@@ -1,6 +1,8 @@
 # NSWCrimeREST
 A RESTful API written in Python (using Flask, Flask-Sockets, and MongoEngine) and backed by MongoDB that exposes the NSW crime dataset (https://search.data.gov.au/dataset/ds-dga-6cdf7a25-4f2d-4bae-b3b5-61175e2b3b13/details).  The server also provides a websocket via which clients can register to receive updates as soon as they are saved to to the database.
 
+An OpenAPI documentation of the API is available at <https://chriswilcox78.github.io/NSWCrimeREST-ApiDoc/> (unfortunately, the "Try it out" buttons do not currently work - the API is not currently hosted anywhere).
+
 ## Some notes on the design
 - I have taken a layered approach to the application separating it into persistence, business, and REST layers.  This will allow changes to be made to one of these layers without having to make corresponding changes to others (for example, changing to the persistence layer to use a relational database should only require changes to that layer and a change to the business layer import - provided the new repository implementation satisfy the same duck-type as the current version).
 - I have made of some [reactive programming constructs](http://reactivex.io/) in the code that drives the websocket implementation.  In particular, a Subject is used to monitor the repository for new crime reports and then push these new reports out to websocket clients who have registered an interest.  The websocket endpoint for subscription is at `/crime-report-updates`.
