@@ -1,7 +1,7 @@
 # NSWCrimeREST
 A RESTful API written in Python (using Flask, Flask-Sockets, and MongoEngine) and backed by either MongoDB or MySQL that exposes the NSW crime dataset (https://search.data.gov.au/dataset/ds-dga-6cdf7a25-4f2d-4bae-b3b5-61175e2b3b13/details).  The server also provides a websocket via which clients can register to receive updates as soon as they are saved to to the database.
 
-The API is hosted with the smaller test dataset here <https://chriswilcox.pythonanywhere.com/>.  
+The API is hosted with the smaller test dataset here <https://chriswilcox.pythonanywhere.com/> (websockets and importing are not enabled).  
 
 Interactive OpenAPI documentation of the API is available in ReDoc format here <https://chriswilcox78.github.io/NSWCrimeREST-ApiDoc/> and in SwaggerUI format here <https://chriswilcox78.github.io/NSWCrimeREST-ApiDoc/swagger-ui/>.
 
