@@ -1,8 +1,11 @@
+from os import environ
 from csv import DictReader
-import persistence.mongo_repository as repo
 from .crime_report import CrimeReport
 from .location import Location
 from .offence import Offence
+from .repository_manager import get_configured_repo
+
+repo = get_configured_repo()
 
 
 def process_csv(file_path: str) -> None:

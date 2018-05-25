@@ -1,14 +1,13 @@
 from typing import List
 
-from bson.objectid import ObjectId
-from mongoengine import connect
-
-import persistence.mongo_repository as repo
 from business.location import Location
 from business.offence import Offence
 
 from .crime_report import CrimeReport
 from .validators import provided, validate_before
+from .repository_manager import get_configured_repo
+
+repo = get_configured_repo()
 
 
 def searchCrimeReports(offenceId: str = None, locationId: str = None) -> List[CrimeReport]:
